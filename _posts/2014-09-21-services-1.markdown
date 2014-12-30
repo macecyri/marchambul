@@ -1,0 +1,9 @@
+---
+layout: default
+img: local.png
+category: Services
+title: Local
+description: |
+    <p class="lead">Mobile dans la ville pour etre lus proches de chez vous</p>
+
+---
