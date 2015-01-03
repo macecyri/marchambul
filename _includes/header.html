@@ -9,14 +9,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><img src="../img/logo.jpeg"> {{ site.title }}</a>
+            <a class="navbar-brand" href="#">{{ site.title }}</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
 
-                    <a href="#contacts">Contactez-nous!!!</a>
+                    <a class="contact-button" href="#contact-container">Contactez-nous!!!</a>
                 </li>
             </ul>
         </div>
@@ -33,9 +33,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="intro-message">
-                    <h1>{{ page.title }}</h1>
-                    <h3>{{ page.subTitle }}</h3>
+                    <img src="../img/marchambul.png">
+
                     <hr class="intro-divider">
+                    <!-- <h1>{{ page.title }}</h1> -->
+                    <h3>{{ page.subTitle }}</h3>
                     <a href="#google-map" class="button btn-default btn-lg link-href">Comment ca marche?</a>
                     <!-- <ul class="list-inline intro-social-buttons">
                         {% for social in site.social %}

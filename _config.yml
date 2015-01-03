@@ -3,7 +3,7 @@
 # ----------------------- #
 
 url: http://yoursite.com
-title: Marchambul
+title: Marchambul - un projet ouvert à tous
 email: your-email@domain.com
 description: > # "Write an awesome description for your new site here.
   You can edit this line in _config.yml. It will appear in your document
@@ -33,4 +33,4 @@ social:
     url: https://twitter.com
     icon: twitter
 
-descriptionCarte: Repérez les triporteurs avec leurs livraison (plus de détail au survol de souris)
+descriptionCarte: Repérez et interagissez avec les triporteurs
