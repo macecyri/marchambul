@@ -1,25 +1,61 @@
- var mapOptions = {
+$('.stats').tooltip();
+
+var mapOptions = {
                 zoom: 13,
                 scrollwheel: false,
+                disableDefaultUI: true,
                 center: new google.maps.LatLng(48.8588589, 2.3470599)
             };
 
 
-  var content1 = '<div style="height: 200px;" id="content">'+
-      '<div id="siteNotice">'+
-      '</div>'+
-      '<h3 id="firstHeading" class="firstHeading">Triporteur 1</h3>'+
-      '<div id="bodyContent">'+
+  var content1 = '<div style="height: 180px;" id="content">'+
+      '<h3 style="display: inline-block;" id="firstHeading" class="firstHeading">Roger </h3>' +
+      '<h4 style="display: inline-block;"> (triporteur 1)</h4>'+
+      '<div id="bodyContent"  style="margin-bottom: 20px;">'+
       '<p>Aujourd hui je transporte:' +
       '<ul>' +
-      '<li>des pommes de la ferme de Paul: <a href="http://www.lafermedepaul.com/4">site web</a></li>' +
-      '<li>des tomates de la production de Françoise: <a href="http://www.lafermedepaul.com/4">site web</a></li>' +
-      '<li>des patates du champs de Roger: <a href="http://www.lafermedepaul.com/4">site web</a></li>' +
+      '<li>des pommes du verger de Paul: <a>site web</a></li>' +
+      '<li>des tomates de la production de Françoise: <a>site web</a></li>' +
+      '<li>des patates du champs de Roger: <a>site web</a></li>' +
       '</ul>' +
       '</p>'+
       '</div>'+
+      '<a style="margin-right: 10px; background-color: #eee;color: #333; border: 1px solid #ccc;padding: 4px 6px">Voir l\'itinéraire</a>'+
       '<a style="background-color: #eee;color: #333; border: 1px solid #ccc;padding: 4px 6px">Appeler le triporteur dans votre quartier</a>'+
       '</div>';
+
+  var content2 = '<div style="height: 200px;" id="content">'+
+      '<h3 style="display: inline-block;" id="firstHeading" class="firstHeading">Francis </h3>' +
+      '<h4 style="display: inline-block;"> (triporteur 2)</h4>'+
+      '<div id="bodyContent"  style="margin-bottom: 20px;">'+
+      '<p>Aujourd hui je transporte:' +
+      '<ul>' +
+      '<li>des betteraves de la production de Francis: <a>site web</a></li>' +
+      '<li>des navets du champs de Michelle: <a>site web</a></li>' +
+      '<li>des carottes de la terre entretenue par Claude: <a>site web</a></li>' +
+      '</ul>' +
+      '</p>'+
+      '</div>'+
+      '<a style="margin-right: 10px; background-color: #eee;color: #333; border: 1px solid #ccc;padding: 4px 6px">Voir l\'itinéraire</a>'+
+      '<a style="background-color: #eee;color: #333; border: 1px solid #ccc;padding: 4px 6px">Appeler le triporteur dans votre quartier</a>'+
+      '</div>';
+
+  var content3 = '<div style="height: 200px;" id="content">'+
+      '<h3 style="display: inline-block;" id="firstHeading" class="firstHeading">Claudette </h3>' +
+      '<h4 style="display: inline-block;"> (triporteur 3)</h4>'+
+      '<div id="bodyContent"  style="margin-bottom: 20px;">'+
+      '<p>Aujourd hui je transporte:' +
+      '<ul>' +
+      '<li>des radis de la production de Jacques: <a>site web</a></li>' +
+      '<li>des pommes du verger de Bernard: <a>site web</a></li>' +
+      '<li>des oignons blancs de la récolte de Nicole: <a>site web</a></li>' +
+      '</ul>' +
+      '</p>'+
+      '</div>'+
+      '<a style="margin-right: 10px; background-color: #eee;color: #333; border: 1px solid #ccc;padding: 4px 6px">Voir l\'itinéraire</a>'+
+      '<a style="background-color: #eee;color: #333; border: 1px solid #ccc;padding: 4px 6px">Appeler le triporteur dans votre quartier</a>'+
+      '</div>';
+
 
 
 var triporteur1Positions =
@@ -106,7 +142,7 @@ var j = 0;
 var k = 0;
 
 var moveMarker = function(){
-    marker1.setPosition( new google.maps.LatLng( triporteur1Positions[i][0], triporteur1Positions[i][1] ) );
+    // marker1.setPosition( new google.maps.LatLng( triporteur1Positions[i][0], triporteur1Positions[i][1] ) );
     marker2.setPosition( new google.maps.LatLng( triporteur2Positions[j][0], triporteur2Positions[j][1] ) );
     marker3.setPosition( new google.maps.LatLng( triporteur3Positions[k][0], triporteur3Positions[k][1] ) );
     i++;
@@ -122,12 +158,12 @@ var moveMarker = function(){
   }
 
 
-var createMarker = function(contentString){
+var createMarker = function(contentString, openInfoWindows){
   var marker = new google.maps.Marker({
       position: new google.maps.LatLng(48.8588589, 2.3470599),
       map: map,
-      title: 'Uluru (Ayers Rock)',
-      icon: "../img/logo.png"
+      title: 'Je suis un triporteur',
+      icon: "../img/marchambul-icon.png"
   });
 
   var infowindow = new google.maps.InfoWindow({
@@ -138,9 +174,20 @@ var createMarker = function(contentString){
     infowindow.open(map,marker);
   });
 
-  google.maps.event.addListener(marker, 'mouseout', function() {
-    infowindow.close(map,marker);
+  google.maps.event.addListener(marker, 'click', function() {
+    var newState = !marker.get('focusInfoWindow');
+    marker.set('focusInfoWindow', newState);
   });
+
+  google.maps.event.addListener(marker, 'mouseout', function() {
+    if (!marker.get('focusInfoWindow')){
+      infowindow.close(map,marker);
+    }
+
+  });
+  if (openInfoWindows){
+    infowindow.open(map,marker);
+  }
 
   return marker
 }
@@ -152,9 +199,10 @@ var map = new google.maps.Map(document.getElementById("google-map"),
 
 
 
-var marker1 = createMarker(content1);
-var marker2 = createMarker(content1);
-var marker3 = createMarker(content1);
+var marker1 = createMarker(content1, true);
+marker1.setPosition( new google.maps.LatLng( 48.8358589, 2.2970599 ) );
+var marker2 = createMarker(content2);
+var marker3 = createMarker(content3);
 
 moveMarker()
 

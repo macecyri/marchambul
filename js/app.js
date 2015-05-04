@@ -1,4 +1,6 @@
- var mapOptions = {
+$('.stats').tooltip();
+
+var mapOptions = {
                 zoom: 13,
                 scrollwheel: false,
                 disableDefaultUI: true,
@@ -6,15 +8,15 @@
             };
 
 
-  var content1 = '<div style="height: 200px;" id="content">'+
+  var content1 = '<div style="height: 180px;" id="content">'+
       '<h3 style="display: inline-block;" id="firstHeading" class="firstHeading">Roger </h3>' +
       '<h4 style="display: inline-block;"> (triporteur 1)</h4>'+
       '<div id="bodyContent"  style="margin-bottom: 20px;">'+
       '<p>Aujourd hui je transporte:' +
       '<ul>' +
-      '<li>des pommes du verger de Paul: <a href="http://www.lafermedepaul.com/4">site web</a></li>' +
-      '<li>des tomates de la production de Françoise: <a href="http://www.lafermedepaul.com/4">site web</a></li>' +
-      '<li>des patates du champs de Roger: <a href="http://www.lafermedepaul.com/4">site web</a></li>' +
+      '<li>des pommes du verger de Paul: <a>site web</a></li>' +
+      '<li>des tomates de la production de Françoise: <a>site web</a></li>' +
+      '<li>des patates du champs de Roger: <a>site web</a></li>' +
       '</ul>' +
       '</p>'+
       '</div>'+
@@ -28,9 +30,9 @@
       '<div id="bodyContent"  style="margin-bottom: 20px;">'+
       '<p>Aujourd hui je transporte:' +
       '<ul>' +
-      '<li>des betteraves de la production de Francis: <a href="http://www.lafermedepaul.com/4">site web</a></li>' +
-      '<li>des navets du champs de Michelle: <a href="http://www.lafermedepaul.com/4">site web</a></li>' +
-      '<li>des carottes de la terre entretenue par Claude: <a href="http://www.lafermedepaul.com/4">site web</a></li>' +
+      '<li>des betteraves de la production de Francis: <a>site web</a></li>' +
+      '<li>des navets du champs de Michelle: <a>site web</a></li>' +
+      '<li>des carottes de la terre entretenue par Claude: <a>site web</a></li>' +
       '</ul>' +
       '</p>'+
       '</div>'+
@@ -44,9 +46,9 @@
       '<div id="bodyContent"  style="margin-bottom: 20px;">'+
       '<p>Aujourd hui je transporte:' +
       '<ul>' +
-      '<li>des radis de la production de Jacques: <a href="http://www.lafermedepaul.com/4">site web</a></li>' +
-      '<li>des pommes du verger de Bernard: <a href="http://www.lafermedepaul.com/4">site web</a></li>' +
-      '<li>des oignons blancs de la récolte de Nicole: <a href="http://www.lafermedepaul.com/4">site web</a></li>' +
+      '<li>des radis de la production de Jacques: <a>site web</a></li>' +
+      '<li>des pommes du verger de Bernard: <a>site web</a></li>' +
+      '<li>des oignons blancs de la récolte de Nicole: <a>site web</a></li>' +
       '</ul>' +
       '</p>'+
       '</div>'+
@@ -140,7 +142,7 @@ var j = 0;
 var k = 0;
 
 var moveMarker = function(){
-    marker1.setPosition( new google.maps.LatLng( triporteur1Positions[i][0], triporteur1Positions[i][1] ) );
+    // marker1.setPosition( new google.maps.LatLng( triporteur1Positions[i][0], triporteur1Positions[i][1] ) );
     marker2.setPosition( new google.maps.LatLng( triporteur2Positions[j][0], triporteur2Positions[j][1] ) );
     marker3.setPosition( new google.maps.LatLng( triporteur3Positions[k][0], triporteur3Positions[k][1] ) );
     i++;
@@ -156,7 +158,7 @@ var moveMarker = function(){
   }
 
 
-var createMarker = function(contentString){
+var createMarker = function(contentString, openInfoWindows){
   var marker = new google.maps.Marker({
       position: new google.maps.LatLng(48.8588589, 2.3470599),
       map: map,
@@ -183,6 +185,9 @@ var createMarker = function(contentString){
     }
 
   });
+  if (openInfoWindows){
+    infowindow.open(map,marker);
+  }
 
   return marker
 }
@@ -194,7 +199,8 @@ var map = new google.maps.Map(document.getElementById("google-map"),
 
 
 
-var marker1 = createMarker(content1);
+var marker1 = createMarker(content1, true);
+marker1.setPosition( new google.maps.LatLng( 48.8358589, 2.2970599 ) );
 var marker2 = createMarker(content2);
 var marker3 = createMarker(content3);
 
